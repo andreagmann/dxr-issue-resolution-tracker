@@ -32,10 +32,14 @@ export async function GET() {
       });
 
     return NextResponse.json({ records });
-  } catch (error) {
-    console.error('Airtable fetch error:', error);
+    } catch (error: any) {
     return NextResponse.json(
-      { error: 'Failed to fetch records from Airtable' },
+      { 
+        error: 'Failed to fetch records from Airtable',
+        details: error?.message || String(error),
+        baseId: process.env.AIRTABLE_BASE_ID,
+        tableName: process.env.AIRTABLE_TABLE_NAME,
+      },
       { status: 500 }
     );
   }
