@@ -3,15 +3,15 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import Airtable from 'airtable';
 
-const base = new Airtable({
-  apiKey: process.env.AIRTABLE_API_KEY,
-}).base(process.env.AIRTABLE_BASE_ID!);
-
-const TABLE_NAME = process.env.AIRTABLE_TABLE_NAME || 'Table 1';
-
 export async function GET() {
   console.log('BASE_ID:', process.env.AIRTABLE_BASE_ID);
   console.log('TABLE_NAME:', process.env.AIRTABLE_TABLE_NAME);
+
+  const base = new Airtable({
+    apiKey: process.env.AIRTABLE_API_KEY,
+  }).base(process.env.AIRTABLE_BASE_ID!);
+
+  const TABLE_NAME = process.env.AIRTABLE_TABLE_NAME || 'Table 1';
   
   try {
     const records: any[] = [];
