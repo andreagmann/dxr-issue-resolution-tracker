@@ -18,7 +18,7 @@ export async function GET() {
 
     await base(TABLE_NAME)
       .select({
-        fields: ['Issue ID', 'Issue', 'Description', 'Screenshot', 'Dimension', 'Theme', 'Decision', 'Resolution', 'Comments'],
+        fields: ['Issue ID', 'Issue', 'Description', 'Screenshot', 'Dimension', 'Theme', 'Severity', 'Issue Resolution'],
         filterByFormula: "NOT({Dimension} = '')",
       })
       .eachPage((pageRecords, fetchNextPage) => {
