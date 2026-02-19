@@ -10,6 +10,9 @@ const base = new Airtable({
 const TABLE_NAME = process.env.AIRTABLE_TABLE_NAME || 'Table 1';
 
 export async function GET() {
+  console.log('BASE_ID:', process.env.AIRTABLE_BASE_ID);
+  console.log('TABLE_NAME:', process.env.AIRTABLE_TABLE_NAME);
+  
   try {
     const records: any[] = [];
 
