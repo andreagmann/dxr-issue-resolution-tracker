@@ -13,7 +13,11 @@ export async function GET() {
       }
     );
 
-    if (!response.ok) throw new Error('Failed to fetch base info');
+    if (!response.ok) {
+      const errorBody = await response.text();
+      console.error('Airtable API response:', response.status, errorBody);
+      throw new Error('Failed to fetch base info');
+    }
 
     const data = await response.json();
 
