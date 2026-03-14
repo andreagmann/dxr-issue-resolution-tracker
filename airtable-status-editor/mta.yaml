@@ -49,16 +49,17 @@ modules:
   - name: airtable-status-editor-approuter
     type: approuter.nodejs
     path: approuter
+    parameters:
+      memory: 256M
+      disk-quota: 512M
     requires:
       - name: airtable-status-editor-html5-repo-runtime
-        parameters:
-          service-binding-name: airtable-status-editor-html5-repo-runtime
     properties:
       destinations: >
         [
           {
             "name": "airtable-backend",
-            "url": "https://airtable-status-editor-backend.cfapps.eu12.hana.ondemand.com",
+            "url": "https://sapdesignprototypes-beta12-projects-airtable-status-editor-backend.cfapps.eu12.hana.ondemand.com",
             "forwardAuthToken": false
           }
         ]
