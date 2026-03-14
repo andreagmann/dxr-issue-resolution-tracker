@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect, useMemo, useRef } from 'react';
 
 interface AirtableAttachment {
@@ -112,7 +110,7 @@ export default function Home() {
   const [selectedRecord, setSelectedRecord] = useState<Record | null>(null);
   const [editingComments, setEditingComments] = useState('');
   const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
-  const [baseName, setBaseName] = useState<string>('');
+  // const [baseName, setBaseName] = useState<string>('');
   const [focusComments, setFocusComments] = useState(false);
   const commentsTextareaRef = useRef<HTMLTextAreaElement>(null);
   const commentsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -120,7 +118,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchRecords();
-    fetchBaseName();
+    // fetchBaseName();
   }, []);
 
   useEffect(() => {
@@ -153,17 +151,17 @@ export default function Home() {
     }
   }, [focusComments]);
 
-  async function fetchBaseName() {
-    try {
-      const res = await fetch('/api/base');
-      if (res.ok) {
-        const data = await res.json();
-        setBaseName(data.name || '');
-      }
-    } catch (e) {
-      // Silently fail
-    }
-  }
+  // async function fetchBaseName() {
+  //   try {
+  //     const res = await fetch('/api/base');
+  //     if (res.ok) {
+  //       const data = await res.json();
+  //       setBaseName(data.name || '');
+  //     }
+  //   } catch (e) {
+  //     // Silently fail
+  //   }
+  // }
 
   async function fetchRecords() {
     try {
@@ -600,11 +598,11 @@ export default function Home() {
 
       {/* Page header */}
       <div className="mb-8">
-        {baseName && (
+        {/* {baseName && (
           <p className="text-sm font-semibold tracking-wide mb-1" style={{ color: '#0070F2' }}>
             {baseName}
           </p>
-        )}
+        )} */}
         <h1 className="text-2xl font-semibold text-gray-900">Issue Status Editor</h1>
         <p className="text-gray-500 mt-1">
           {sortedRecords.length} issue{sortedRecords.length !== 1 ? 's' : ''} found. Click a row to see details.

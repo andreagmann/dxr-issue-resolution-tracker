@@ -1,0 +1,81 @@
+_schema-version: "3.1"
+ID: airtable-status-editor
+version: 1.0.4
+
+modules:
+  # ── Frontend (HTML5 static app) ──────────────────────────────────────────
+  - name: airtable-status-editor-ui
+    type: html5
+    path: frontend
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npm run build
+      supported-platforms: []
+
+  - name: airtable-status-editor-ui-deployer
+    type: com.sap.application.content
+    path: deployer
+    requires:
+      - name: airtable-status-editor-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: .
+      requires:
+        - name: airtable-status-editor-ui
+          artifacts:
+            - resources/airtablestatuseditor.zip
+          target-path: .
+
+  # ── Backend (Node/Express CF app) ────────────────────────────────────────
+  - name: airtable-status-editor-backend
+    type: nodejs
+    path: backend
+    parameters:
+      disk-quota: 256M
+      memory: 256M
+      routes:
+        - route: sapdesignprototypes-beta12-projects-airtable-status-editor-backend.cfapps.eu12.hana.ondemand.com
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npm run build
+      supported-platforms: []
+
+  # ── Approuter ────────────────────────────────────────────────────────────
+  - name: airtable-status-editor-approuter
+    type: approuter.nodejs
+    path: approuter
+    requires:
+      - name: airtable-status-editor-html5-repo-runtime
+        parameters:
+          service-binding-name: airtable-status-editor-html5-repo-runtime
+    properties:
+      destinations: >
+        [
+          {
+            "name": "airtable-backend",
+            "url": "https://airtable-status-editor-backend.cfapps.eu12.hana.ondemand.com",
+            "forwardAuthToken": false
+          }
+        ]
+
+resources:
+  # ── HTML5 Repo ───────────────────────────────────────────────────────────
+  - name: airtable-status-editor-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+
+  # ── HTML5 Repo Runtime ───────────────────────────────────────────────────
+  - name: airtable-status-editor-html5-repo-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime
+      service-tags:
+        - html5-apps-repo-rt

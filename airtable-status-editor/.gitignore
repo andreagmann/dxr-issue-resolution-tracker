@@ -1,0 +1,23 @@
+# Build artifacts
+mta_archives/
+frontend/dist/
+backend/dist/
+
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# MBT temp files
+.airtable-status-editor_mta_build_tmp/
+Makefile_*.mta
+
+# Environment
+.env
+.env.local
+.env*.local
+
+# Editor
+.DS_Store
+.vscode/
+*.swp

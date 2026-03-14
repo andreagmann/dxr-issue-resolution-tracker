@@ -1,0 +1,11 @@
+{
+  "authenticationMethod": "none",
+  "routes": [
+    {
+      "source": "^/(.*)$",
+      "target": "$1",
+      "localDir": ".",
+      "authenticationType": "none"
+    }
+  ]
+}

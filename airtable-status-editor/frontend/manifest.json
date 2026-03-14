@@ -1,0 +1,15 @@
+{
+  "sap.app": {
+    "id": "airtablestatuseditor",
+    "type": "application",
+    "title": "Issue Status Editor",
+    "description": "Update issue statuses from Airtable",
+    "applicationVersion": {
+      "version": "1.0.4"
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "airtablestatuseditor"
+  }
+}
